@@ -1,0 +1,51 @@
+﻿@model MVC_Task.Models.Entities.Student
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>@MVC_Task.Languages.Resource1.Delete</h1>
+
+<h3>@MVC_Task.Languages.Resource1.Areyousure</h3>
+<div>
+    <h4>@MVC_Task.Languages.Resource1.Student</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @MVC_Task.Languages.Resource1.Gender
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Gender)
+        </dd>
+        <dt class = "col-sm-2">
+            @MVC_Task.Languages.Resource1.Name
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            @MVC_Task.Languages.Resource1.City
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.City)
+        </dd>
+        <dt class = "col-sm-2">
+            @MVC_Task.Languages.Resource1.DateOfBirth
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DateOfBirth)
+        </dd>
+        <dt class = "col-sm-2">
+            @MVC_Task.Languages.Resource1.IsEnrolled
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.IsEnrolled)
+        </dd>
+    </dl>
+    
+    <form method="post">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="@MVC_Task.Languages.Resource1.Delete" class="btn btn-danger" /> |
+        <a asp-action="Index">@MVC_Task.Languages.Resource1.BacktoList</a>
+    </form>
+</div>

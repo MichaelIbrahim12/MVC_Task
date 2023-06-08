@@ -1,0 +1,105 @@
+﻿
+@using MVC_Task.Models.Entities
+@model StudentSearch;
+
+@{
+    var pager = new Pager();
+    int pageNo = 0;
+
+    if (ViewBag.pager != null)
+    {
+        pager = ViewBag.pager;
+        pageNo = pager.CurrentPage;
+    }
+}
+
+<h1>@MVC_Task.Languages.Resource1.Index</h1>
+
+<div class="container-fluid">
+
+    <form method="get" class="row">
+            
+        <div class="col-lg-4">
+            <div class="form-group row ">
+            <label asp-for="Name" class="control-label">@MVC_Task.Languages.Resource1.Name</label>
+                <input asp-for="Name" class="form-control" value="@ViewData["NameFilter"]" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+        </div>
+            <div class="form-group mt-2 ">
+                <span>@MVC_Task.Languages.Resource1.All</span><input asp-for="Gender" type="radio" id="all" name="Gender" value="All">
+                <span>@MVC_Task.Languages.Resource1.Male</span><input asp-for="Gender" type="radio" id="male" name="Gender" value="Male">
+                <span>@MVC_Task.Languages.Resource1.Female</span><input asp-for="Gender" type="radio" id="female" name="Gender" value="Female">
+            </div>
+        <div class="col-lg-4">
+
+            <div class="form-group mt-2 row">
+                <label asp-for="City" class="control-label">@MVC_Task.Languages.Resource1.City</label>
+                <input asp-for="City" class="form-control " value="@ViewData["CityFilter"]" />
+            </div>
+
+        </div>
+            <div class="form-group">
+                <label asp-for="From" class="control-label mt-2 mb-1">@MVC_Task.Languages.Resource1.DateOfBirth</label> <br />
+                <label asp-for="From" class="control-label my-3 ">@MVC_Task.Languages.Resource1.From</label>
+            <input asp-for="From" name="From" value="@ViewData["FromFilter"]" />
+        </div >
+
+            <div class="form-group mt-2">
+                <label asp-for="To" class="control-label me-4">@MVC_Task.Languages.Resource1.To</label>
+            <input asp-for="To" name="To" value="@ViewData["ToFilter"]" />
+            </div>
+            <div class="form-group">
+            <input type="submit" value="@MVC_Task.Languages.Resource1.Search" class="btn btn-primary mt-4" />
+            </div>
+        </form>
+    </div>
+<a asp-action="Create" asp-controller="Student">@MVC_Task.Languages.Resource1.Createnew</a>
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>@MVC_Task.Languages.Resource1.Name</th>
+            <th>@MVC_Task.Languages.Resource1.Gender</th>
+            <th>@MVC_Task.Languages.Resource1.City</th>
+            <th>@MVC_Task.Languages.Resource1.DateOfBirth</th>
+            <th>@MVC_Task.Languages.Resource1.IsEnrolled</th>
+            <th>@MVC_Task.Languages.Resource1.Action</th>
+
+        </tr>
+    </thead>
+ 
+    @foreach (var item in ViewBag.Students)
+    {
+        <tr>
+            <td> @item.Name</td>
+            <td> @item.Gender</td>
+            <td> @item.City</td>
+            <td> @item.DateOfBirth</td>
+            <td> <input type="checkbox" checked="@item.IsEnrolled" disabled /></td>
+            <td> <a asp-action="Edit" asp-controller="Student" asp-route-Id="@item.Id">@MVC_Task.Languages.Resource1.Edit</a>|<a asp-action="Delete" asp-controller="Student" asp-route-Id="@item.Id">@MVC_Task.Languages.Resource1.Delete</a></td>
+            </tr>
+        }
+</table>
+
+<div class="container">
+    @if (pager.TotalPages>0)
+    {
+        <ul class="pagination justify-content-start">
+
+            @for (var pge=pager.StartPage ; pge<=pager.EndPage  ; pge++)
+            {
+                <li class="page-item @(pge==pager.CurrentPage ?"active" : " ")">
+                    <a class="page-link" asp-action="Index" asp-route-page="@pge"> @pge</a>
+                </li>
+                
+            }
+        </ul>
+    }
+
+</div>
+@section scripts{
+    <partial name="_ValidationScriptsPartial" />
+        }
+
+
